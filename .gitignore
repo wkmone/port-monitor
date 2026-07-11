@@ -1,5 +1,7 @@
 node_modules/
 dist/
+release/
+out/
 .env
 .env.local
 .DS_Store
@@ -14,3 +16,16 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Electron
+electron-builder/
+*.exe
+*.msi
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+
+# 旧目录
+server/
+client/

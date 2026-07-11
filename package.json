@@ -1,18 +1,61 @@
 {
   "name": "port-monitor",
   "version": "1.0.0",
-  "description": "端口监控可视化工具 - 实时监控系统端口占用情况",
+  "description": "端口监控仪表板 - 实时监控系统端口占用情况",
+  "main": "electron/main.cjs",
   "private": true,
+  "type": "module",
   "scripts": {
-    "install:server": "cd server && npm install",
-    "install:client": "cd client && npm install",
-    "install:all": "npm run install:server && npm run install:client",
-    "dev:server": "cd server && npm run dev",
-    "dev:client": "cd client && npm run dev",
-    "build:client": "cd client && npm run build",
-    "start": "cd server && npm start"
+    "dev": "vite",
+    "dev:electron": "set VITE_DEV_SERVER_URL=http://localhost:5173&& electron .",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron:build": "vite build && electron-builder",
+    "electron:build:win": "vite build && electron-builder --win",
+    "electron:build:nsis": "vite build && electron-builder --win nsis",
+    "electron:build:portable": "vite build && electron-builder --win portable"
   },
-  "keywords": ["port", "monitor", "network", "windows"],
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "vite": "^5.0.8"
+  },
+  "build": {
+    "appId": "com.portmonitor.app",
+    "productName": "端口监控仪表板",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "端口监控仪表板"
+    }
+  },
+  "keywords": ["port", "monitor", "network", "windows", "electron"],
   "author": "",
   "license": "MIT"
 }
