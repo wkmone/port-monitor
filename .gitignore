@@ -25,6 +25,7 @@ electron-builder/
 *.AppImage
 *.deb
 *.rpm
+cache/
 
 # 旧目录
 server/
