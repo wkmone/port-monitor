@@ -290,11 +290,17 @@ function createWindow() {
     }
   });
 
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
+    console.error('Page load failed:', errorCode, errorDescription, validatedURL);
+  });
+
   if (process.env.VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
+    const indexPath = path.join(__dirname, '../dist/index.html');
+    console.log('Loading index from:', indexPath);
+    mainWindow.loadFile(indexPath);
   }
 
   mainWindow.on('close', (e) => {
